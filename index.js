@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+const path = require('path')
+
 const cors = require('cors')
 app.use(
 	cors({
@@ -13,7 +15,13 @@ const upload = multer({
 	dest: 'uploads',
 })
 
-app.post('/upload', upload.single('upfile'), (req, res) => {
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname + '/index.html'))
+})
+
+app.post('/api/upload', upload.single('upfile'), (req, res) => {
+	console.log(req.file)
+
 	return res.send({
 		name: req.file.filename,
 		type: req.file.mimetype,
