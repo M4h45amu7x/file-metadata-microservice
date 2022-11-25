@@ -19,11 +19,9 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname + '/index.html'))
 })
 
-app.post('/api/upload', upload.single('upfile'), (req, res) => {
-	console.log(req.file)
-
+app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
 	return res.send({
-		name: req.file.filename,
+		name: req.file.originalname,
 		type: req.file.mimetype,
 		size: req.file.size,
 	})
